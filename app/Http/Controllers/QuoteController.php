@@ -46,7 +46,7 @@ class QuoteController extends Controller
         return response()->json([ 'status' => 200, 'data' => $quote], 200);
     }
 
-    public function update(Request $request, Quote $quote)
+    public function update(Request $request, $id)
     {
         $quote = Quote::find($id);
 
@@ -59,15 +59,13 @@ class QuoteController extends Controller
         return response()->json([ 'status' => 200, 'data' => $quote], 200);
     }
 
-    public function destroy(Quote $quote)
+    public function destroy(Request $request, $id)
     {
         $quote = Quote::destroy($id);
 
         if (!$quote) {
             return response()->json(['error' => 'Document not found'], 404);
         }
-
-        $quote->update($request->all());
 
         return response()->json([ 'status' => 200, 'data' => $quote], 200);
     }
