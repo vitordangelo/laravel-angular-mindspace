@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Quote;
 use Illuminate\Http\Request;
+use JWTAuth;
 
 class QuoteController extends Controller
 {
@@ -21,6 +22,7 @@ class QuoteController extends Controller
 
     public function store(Request $request)
     {
+        $user = JWTAuth::parseToken()->toUser();
         // $quote = Quote::create($request->all());
         $quote = new Quote();
         $quote->content = $request->input('content');
@@ -31,7 +33,7 @@ class QuoteController extends Controller
             return response()->json(['error' => 'Não pode ser vazio'], 404);
         }
 
-        return response()->json([ 'status' => 200, 'data' => $quote], 200);
+        return response()->json([ 'status' => 200, 'user' => $user, 'data' => $quote], 200);
     }
 
     public function show(Quote $quote)
