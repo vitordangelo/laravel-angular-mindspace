@@ -19,10 +19,11 @@ use Illuminate\Http\Request;
 
 Route::group(['prefix'=>'/v1', 'middleware' => ['auth.jwt']], function(){
     Route::resource('quote', 'QuoteController');
-    Route::post('user', 'UserController@signup');
+    // Route::post('user', 'UserController@signup');
     Route::post('user/signin', 'UserController@signin');
 });
 
 Route::group(['prefix'=>'/v1'], function(){
     Route::post('user/signin', 'UserController@signin');
+    Route::post('user/signup', 'UserController@signup');
 });
